@@ -1,7 +1,7 @@
 
 var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
-var routes = require('./routes/index.js');
+//var routes = require('./routes/index.js');
 var googleImages = require('google-images');
 
 var apiKey = 'AIzaSyCuWGz9GGxgu4YkmxFK1g-0I3h3Ynhq6M0';
@@ -15,7 +15,6 @@ cx = process.env.cx;
 var client = new googleImages(cx,apiKey);
 
 var app = express();
-routes(app, __dirname);
 
 app.get("/api/imagesearch/:search", (req, res) => {
 
@@ -74,6 +73,8 @@ function convertResultToImage(item) {
     context:   item.parentPage
   }
 }
+
+app.get('/',express.static('public'));
 
 MongoClient.connect(dburl, (err, res) => {
   if (err) {
