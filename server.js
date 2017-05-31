@@ -73,18 +73,9 @@ function convertResultToImage(item) {
   }
 }
 
+app.use(express.static(__dirname + '/public'));
 //app.get('/',express.static('public'));
-app.get(function(req, res) {
-		var host = getHost(req) + '/', express.static('public')
-});
 
-function getHost(req) {
-		return url.format({
-				protocol: req.protocol,
-				host: req.get('host'),
-			});
-}
-		
 MongoClient.connect(dburl, (err, res) => {
   if (err) {
     return console.log(`Error al conectar a la base de datos: ${err}`)
