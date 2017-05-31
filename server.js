@@ -5,7 +5,7 @@ var googleImages = require('google-images');
 
 var apiKey = 'AIzaSyCuWGz9GGxgu4YkmxFK1g-0I3h3Ynhq6M0';
 var cx = '004221433238695570707:uh-hddlyiho';
-var port = process.env.PORT || '8080';
+var port = process.env.PORT || 8080;
 //var dburl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/test';
 var dburl = process.env.MONGOLAB_URI;
 var searches = null;
@@ -85,6 +85,6 @@ MongoClient.connect(dburl, (err, res) => {
   console.log('Conexión a la base de datos establecida...')
 
   app.listen(port, () => {
-  	console.log(`API RESTful corriendo en puerto: ${port}`)
+  	console.log('Running good...')
   });
 });
