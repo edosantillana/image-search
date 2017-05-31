@@ -16,7 +16,10 @@ var client = new googleImages(cx,apiKey);
 var app = express();
 
 app.use(express.static(__dirname + '/public'));
-app.get('/', express.static(__dirname + '/public'));
+
+app.get('/', (req, res) => {
+  res.render('index');
+});
 
 app.get("/api/imagesearch/:search", (req, res) => {
 
@@ -75,14 +78,6 @@ function resultToImage(item) {
     context:   item.parentPage
   }
 }
-
-//app.get('/', express.static(__dirname + 'public'));
-/*app.get('/', function(request, response) {
-  response.render('/public/index.html')
-});
-app.get('*', function(req,res){
-    res.send(req.headers);
-});*/
 
 MongoClient.connect(dburl, (err, res) => {
   if (err) {
