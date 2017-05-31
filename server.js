@@ -73,7 +73,10 @@ function resultToImage(item) {
   }
 }
 
-app.get('/', express.static(__dirname + '/public'));
+//app.get('/', express.static(__dirname + 'public'));
+app.get('/', function(request, response) {
+  response.render('public/index')
+});
 app.get('*', function(req,res){
     res.send(req.headers);
 });
