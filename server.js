@@ -73,8 +73,18 @@ function convertResultToImage(item) {
   }
 }
 
-app.get('/',express.static('public'));
+//app.get('/',express.static('public'));
+app.get(function(req, res) {
+		var host = getHost(req) + '/', express.static('public')
+});
 
+function getHost(req) {
+		return url.format({
+				protocol: req.protocol,
+				host: req.get('host'),
+			});
+}
+		
 MongoClient.connect(dburl, (err, res) => {
   if (err) {
     return console.log(`Error al conectar a la base de datos: ${err}`)
@@ -82,6 +92,6 @@ MongoClient.connect(dburl, (err, res) => {
   console.log('Conexión a la base de datos establecida...')
 
   app.listen(port, () => {
-  	console.log(`API RESTful corriendo en http://localhost:${port}`)
+  	console.log(`API RESTful corriendo en puerto: ${port}`)
   });
 });
