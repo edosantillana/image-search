@@ -16,9 +16,7 @@ var client = new googleImages(cx,apiKey);
 var app = express();
 
 app.use(express.static(__dirname + '/public'));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public', 'index.html'));
-})
+app.get('/', express.static(__dirname + '/public'));
 
 app.get("/api/imagesearch/:search", (req, res) => {
 
