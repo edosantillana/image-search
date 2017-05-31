@@ -73,8 +73,8 @@ function convertResultToImage(item) {
   }
 }
 
-app.get('/',express.static('public'));
-app.get('*',function(req,res){
+app.get('/', express.static(__dirname + 'public'));
+app.get('*', function(req,res){
     res.send(req.headers);
 });
 
