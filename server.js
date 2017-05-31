@@ -33,7 +33,7 @@ app.get("/api/imagesearch/:search", (req, res) => {
     		} else {
           searches.insert([{term: term, when: when}], () => {
               db.close();
-							res.json(images.map(convertResultToImage));
+							res.json(images.map(resultToImage));
 
           });
         }
@@ -64,7 +64,7 @@ app.get("/api/latest/imagesearch/", (req, res) => {
 
 });
 
-function convertResultToImage(item) {
+function resultToImage(item) {
   return {
     url:       item.url,
     snippet:   item.description,
@@ -85,6 +85,6 @@ MongoClient.connect(dburl, (err, res) => {
   console.log('Conexión a la base de datos establecida...')
 
   app.listen(port, () => {
-  	console.log('Running good...')
+  	console.log(`Corriendo en puerto: ${port}`)
   });
 });
