@@ -31,18 +31,17 @@ app.get("/api/imagesearch/:search", (req, res) => {
       MongoClient.connect(dburl, function(err,db) {
         searches = db.collection('searches');
         if (err) {
-    			console.error(err);
-    			return res.status(500).end(err.message);
-    		} else {
+          console.error(err);
+          return res.status(500).end(err.message);
+        } else {
           searches.insert([{term: term, when: when}], () => {
-              db.close();
-							res.json(images.map(resultToImage));
-
+            db.close();
+            res.json(images.map(resultToImage));
           });
         }
       });
     }
-	});
+  });
 
 });
 
@@ -50,19 +49,19 @@ app.get("/api/latest/imagesearch/", (req, res) => {
 
   MongoClient.connect(dburl, (err,db) => {
     searches = db.collection('searches');
-	//Últimas búsquedas
-  	searches.find().limit(10).sort({when: -1}).toArray((err, results) => {
-  		if (err) {
-  			console.error(err);
-  			return res.status(500).end(err.message);
-  		}
-  		res.json(results.map((d) => {
-  			return {
-  				term: d.term,
-  				when: d.when
-  			}
-  		}));
-  	});
+    //Últimas búsquedas
+    searches.find().limit(10).sort({when: -1}).toArray((err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).end(err.message);
+      }
+      res.json(results.map((d) => {
+        return {
+          term: d.term,
+          when: d.when
+        }
+      }));
+    });
   });
 
 });
