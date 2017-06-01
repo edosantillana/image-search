@@ -8,8 +8,8 @@ var cx = '004221433238695570707:uh-hddlyiho';
 var port = process.env.PORT || 8080;
 var dburl = process.env.MONGOLAB_URI;
 var searches = null;
-apiKey = process.env.apiKey;
-cx = process.env.cx;
+/*apiKey = process.env.apiKey;
+cx = process.env.cx;*/
 var client = new googleImages(cx,apiKey);
 
 var app = express();
