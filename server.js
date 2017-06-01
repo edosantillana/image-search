@@ -12,11 +12,7 @@ var searches = null;
 
 var app = express();
 
-app.use(express.static(__dirname + '/public'));
-
-app.get('/', (req, res) => {
-  res.render('index');
-});
+app.use(express.static('./public'));
 
 app.get("/api/imagesearch/:search", (req, res) => {
 
