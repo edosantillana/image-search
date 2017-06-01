@@ -20,7 +20,7 @@ app.get("/api/imagesearch/:search", (req, res) => {
 
 	var search = req.params.search;
   var offset = req.query.offset ? req.query.offset : 1;
-	var term = decodeURIComponent(search);
+	var term = search;
 	var when = new Date();
 
   //Las primeras 10 imágenes
