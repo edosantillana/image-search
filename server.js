@@ -3,12 +3,14 @@ var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var googleImages = require('google-images');
 
+var apiKey = 'AIzaSyCuWGz9GGxgu4YkmxFK1g-0I3h3Ynhq6M0';
+var cx = '004221433238695570707:uh-hddlyiho';
 var port = process.env.PORT || 8080;
 var dburl = process.env.MONGOLAB_URI;
+var searches = null;
 apiKey = process.env.apiKey;
 cx = process.env.cx;
 var client = new googleImages(cx,apiKey);
-var searches = null;
 
 var app = express();
 
@@ -27,17 +29,18 @@ app.get("/api/imagesearch/:search", (req, res) => {
       MongoClient.connect(dburl, function(err,db) {
         searches = db.collection('searches');
         if (err) {
-          console.error(err);
-          return res.status(500).end(err.message);
-        } else {
+    			console.error(err);
+    			return res.status(500).end(err.message);
+    		} else {
           searches.insert([{term: term, when: when}], () => {
-            db.close();
-            res.json(images.map(resultToImage));
+              db.close();
+							res.json(images.map(resultToImage));
+
           });
         }
       });
     }
-  });
+	});
 
 });
 
@@ -45,19 +48,19 @@ app.get("/api/latest/imagesearch/", (req, res) => {
 
   MongoClient.connect(dburl, (err,db) => {
     searches = db.collection('searches');
-    //Últimas búsquedas
-    searches.find().limit(10).sort({when: -1}).toArray((err, results) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).end(err.message);
-      }
-      res.json(results.map((d) => {
-        return {
-          term: d.term,
-          when: d.when
-        }
-      }));
-    });
+	//Últimas búsquedas
+  	searches.find().limit(10).sort({when: -1}).toArray((err, results) => {
+  		if (err) {
+  			console.error(err);
+  			return res.status(500).end(err.message);
+  		}
+  		res.json(results.map((d) => {
+  			return {
+  				term: d.term,
+  				when: d.when
+  			}
+  		}));
+  	});
   });
 
 });
