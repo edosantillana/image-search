@@ -3,10 +3,12 @@ var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var googleImages = require('google-images');
 
-var cx = '004221433238695570707:uh-hddlyiho';
-var apiKey = 'AIzaSyCuWGz9GGxgu4YkmxFK1g-0I3h3Ynhq6M0';
+/*var cx = '004221433238695570707:uh-hddlyiho';
+var apiKey = 'AIzaSyCuWGz9GGxgu4YkmxFK1g-0I3h3Ynhq6M0';*/
 var port = process.env.PORT || 8080;
 var dburl = process.env.MONGOLAB_URI;
+var cx = process.env.cx;
+var apiKey = process.env.apiKey;
 var client = new googleImages(cx, apiKey);
 var searches = null;
 
