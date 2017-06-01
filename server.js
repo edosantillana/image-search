@@ -2,7 +2,6 @@
 var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var googleImages = require('google-images');
-var url = require('url');
 
 /*var cx = '004221433238695570707:uh-hddlyiho';
 var apiKey = 'AIzaSyCuWGz9GGxgu4YkmxFK1g-0I3h3Ynhq6M0';*/
