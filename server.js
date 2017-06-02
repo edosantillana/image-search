@@ -12,28 +12,13 @@ var searches = null;
 
 var app = express();
 
-MongoClient.connect(dburl, (err, res) => {
-  if (err) {
-    return console.log(`Error al conectar a la base de datos: ${err}`)
-  }
-  console.log('Conexión a la base de datos establecida...')
-});
-
-app.listen(port, () => {
-  console.log('Corriendo en puerto: ' + port);
-});
-
-app.use(express.static(__dirname + '/public'));
-
-app.get('/', (req, res) => {
-  res.render('index');
-});
+app.use(express.static('./public'));
 
 app.get("/api/imagesearch/:search", (req, res) => {
 
 	var search = req.params.search;
   var offset = req.query.offset ? req.query.offset : 1;
-	var term = search;
+	var term = decodeURIComponent(search);
 	var when = new Date();
 
   //Las primeras 10 imágenes
@@ -86,3 +71,14 @@ function resultToImage(item) {
     context:   item.parentPage
   }
 }
+
+MongoClient.connect(dburl, (err, res) => {
+  if (err) {
+    return console.log(`Error al conectar a la base de datos: ${err}`)
+  }
+  console.log('Conexión a la base de datos establecida...')
+});
+
+app.listen(port, () => {
+  console.log('Corriendo en puerto: ' + port);
+});
