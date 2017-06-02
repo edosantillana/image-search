@@ -12,6 +12,17 @@ var searches = null;
 
 var app = express();
 
+MongoClient.connect(dburl, (err, res) => {
+  if (err) {
+    return console.log(`Error al conectar a la base de datos: ${err}`)
+  }
+  console.log('Conexión a la base de datos establecida...')
+});
+
+app.listen(port, () => {
+  console.log('Corriendo en puerto: ' + port);
+});
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
@@ -75,14 +86,3 @@ function resultToImage(item) {
     context:   item.parentPage
   }
 }
-
-MongoClient.connect(dburl, (err, res) => {
-  if (err) {
-    return console.log(`Error al conectar a la base de datos: ${err}`)
-  }
-  console.log('Conexión a la base de datos establecida...')
-});
-
-app.listen(port, () => {
-  console.log('Corriendo en puerto: ' + port);
-});
