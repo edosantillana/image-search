@@ -2,6 +2,7 @@
 var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var googleImages = require('google-images');
+var path = require('path');
 
 var port = process.env.PORT || 8080;
 var dburl = process.env.MONGOLAB_URI;
@@ -12,7 +13,7 @@ var searches = null;
 
 var app = express();
 
-app.use(express.static('./public'));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.get("/api/imagesearch/:search", (req, res) => {
 
